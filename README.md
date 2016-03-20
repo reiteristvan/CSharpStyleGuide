@@ -15,6 +15,7 @@ I am by all means don't know everything and of course make mistakes. If you have
 ## Table of Contents
 
 1. [Classes](#classes)
+2. [Constructors)(#constructors)
 
 ## Classes
 
@@ -35,6 +36,52 @@ I am by all means don't know everything and of course make mistakes. If you have
   - Classes which are not part of a hierarchy or not intended to inherit from should be marked with the *sealed* modifier.
   
   *Why?*: There are classes where it's difficult to enforce behaviors. Also we should only allow inheritance where it actually makes sense. It's hard to design classes which can be effectively extended and sometimes it is better if we don't allow it.
+
+## Constructors
+
+### One place
+
+  - The initialization of an object happening in exactly one place: the constructor. Do not use inline initializations.
+  
+  *Why?*: It makes the source code readable and makes it harder to mess up something with an unwanted value.
+
+  ```csharp
+  public class Computer
+  {
+    /* avoid */
+    private readonly HardDrive _hardDrive = new HardDrive();
+    ...
+    
+    public class Computer()
+    {
+      ...
+    }
+  }
+  
+    public class Computer
+  {
+    /* recommended */
+    private readonly HardDrive _hardDrive;
+    ...
+    
+    public class Computer()
+    {
+      _hardDrive = new HardDrive();
+    }
+  }
+  ```
+
+### Leave it in good state
+
+  - After the constructor executed the object should be in a "correct" state. This means there are no uninitialized members and every method call is work as intended.
+
+  *Why?*: As a developer I expect that after the constructor called the object is ready to use.
+
+### Less is more
+
+  - Do not place too much logic in the constructor. The only job of the constructor is to set an initial state. After that the object is usable. A rule of thumb can be that a constructor consist of N + 5 lines where N is the number of members (not counting parameter checks).
+  
+  *Why?*: The constructor needs to be fast and needs to be safe. For example if your class handles database then the constrcutor does not need to do the database connection logic, it can be deferred to another method call. That way the developer will have complete control over the lifecycle of the object and avoid side effects.
 
 ## Copyright
 

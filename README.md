@@ -14,6 +14,28 @@ I am by all means don't know everything and of course make mistakes. If you have
 
 ## Table of Contents
 
+1. [Classes](#classes)
+
+## Classes
+
+### Rule of 1
+
+  - Define one class per file, recommended to be less then 500 lines of code.
+  
+  *Why?*: One class per file makes it easier to read and maintain the source code. Also it helps avoid conflicts in source control.
+
+### Visibility
+
+  - Use explicit visibility. Don't let internal classes garbaging the public interface of a library.
+  
+  *Why?*: Don't let developers use classes which are intended for internal use. This will make clear the purpose of the library.
+
+### Seal
+
+  - Classes which are not part of a hierarchy or not intended to inherit from should be marked with the *sealed* modifier.
+  
+  *Why?*: There are classes where it's difficult to enforce behaviors. Also we should only allow inheritance where it actually makes sense. It's hard to design classes which can be effectively extended and sometimes it is better if we don't allow it.
+
 ## Copyright
 
 Copyright (c) 2016- Istvan Reiter

@@ -35,7 +35,7 @@ I am by all means don't know everything and of course make mistakes. If you have
 
   - Classes which are not part of a hierarchy or not intended to inherit from should be marked with the *sealed* modifier.
   
-  *Why?*: There are classes where it's difficult to enforce behaviors. Also we should only allow inheritance where it actually makes sense. It's hard to design classes which can be effectively extended and sometimes it is better if we don't allow it.
+  *Why?*: There are classes where it's difficult to enforce behaviors. Also we should only allow inheritance where it actually makes sense. It's hard to design classes which can be effectively extended and sometimes it is better if we don't allow it at all.
 
 ## Constructors
 
@@ -43,7 +43,7 @@ I am by all means don't know everything and of course make mistakes. If you have
 
   - The initialization of an object happening in exactly one place: the constructor. Do not use inline initializations.
   
-  *Why?*: It makes the source code readable and makes it harder to mess up something with an unwanted value.
+  *Why?*: It makes the source code readable and makes it harder to mess up something with an unwanted value. Because inline definitions run before the constructor it's actually possible to initialize a member twice.
 
   ```csharp
   public class Computer
@@ -81,7 +81,47 @@ I am by all means don't know everything and of course make mistakes. If you have
 
   - Do not place too much logic in the constructor. The only job of the constructor is to set an initial state. After that the object is usable. A rule of thumb can be that a constructor consist of N + 5 lines where N is the number of members (not counting parameter checks).
   
-  *Why?*: The constructor needs to be fast and needs to be safe. For example if your class handles database then the constrcutor does not need to do the database connection logic, it can be deferred to another method call. That way the developer will have complete control over the lifecycle of the object and avoid side effects.
+  *Why?*: The constructor needs to be fast and needs to be safe. For example if your class handles database then the constructor does not need to do the database connection logic, it can be deferred to another method call. That way the developer will have complete control over the lifecycle of the object and avoid side effects.
+
+  ```csharp
+  public class DatabaseHandler
+  {
+    private readonly DatabaseConnection _connection;
+    ...
+    
+    public class DatabaseHandler(string connectionString)
+    {
+      if(string.IsNullOrEmpty(connectionString))
+      {
+        throw new ArgumentException("connectionString");
+      }
+      
+      _connection = new DatabaseConnection(connectionString);
+      _connection.Start(); // avoid
+    }
+  }
+  
+  public class DatabaseHandler
+  {
+    private readonly DatabaseConnection _connection;
+    ...
+    
+    public class DatabaseHandler(string connectionString)
+    {
+      if(string.IsNullOrEmpty(connectionString))
+      {
+        throw new ArgumentException("connectionString");
+      }
+      
+      _connection = new DatabaseConnection(connectionString);
+    }
+    
+    public void Start()
+    {
+      _connection.Start(); // recommended
+    }
+  }
+  ```
 
 ## Copyright
 

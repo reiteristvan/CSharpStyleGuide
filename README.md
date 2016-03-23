@@ -16,6 +16,7 @@ I am by all means don't know everything and of course make mistakes. If you have
 
 1. [Classes](#classes)
 2. [Constructors](#constructors)
+3. [Class members](#class-members)
 
 ## Classes
 
@@ -122,6 +123,16 @@ I am by all means don't know everything and of course make mistakes. If you have
     }
   }
   ```
+
+## Class members
+
+### Visibility
+
+  - The visibility of class members is private or in some cases protected. If an inherited class uses the member but does not modify it create a property with only a getter. Always use the visibility keywords that way in the future all developers will know what your intention were.
+
+### Readonly
+
+  - Members should have the readonly modifier, that way we enforce that every member gets the appropriate value after the constuctor runned.
 
 ## Copyright
 

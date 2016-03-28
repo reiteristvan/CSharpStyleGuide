@@ -132,7 +132,7 @@ I am by all means don't know everything and of course make mistakes. If you have
 
 ### Readonly
 
-  - Members should have the readonly modifier, that way we enforce that every member gets the appropriate value after the constuctor runned.
+  - Members when possible should have the readonly modifier, that way we enforce that every members get the appropriate value after the constuctor runned.
 
 ## Copyright
 

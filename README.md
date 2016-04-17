@@ -126,6 +126,34 @@ I am by all means don't know everything and of course make mistakes. If you have
 
 ## Class members
 
+### Naming regular members
+  - There are two conventions for naming private members. You should choose one and be consistent across the project.
+  
+  - Option 1: the name of the member is written with 'camelCase' (ie: starts with lowercase and use upercase on subsequent words) and use 'this' when referencing it.
+  - Option 2: the name of the member is starts with the underscore character '_', after that use the same format as in Option 1. Referencing does not require the 'this' keyword.
+  
+  *Why?* With Option 1 we have no way to make difference between variables and members, so we need to use the 'this' keyword. With Option 2 the underscore character will take care of this problem. Also, with Option 2 there is another advantage, when we hit underscore IntelliSense will display all name starting with underscore, ie all private members. With 'this' the list will include properties and methods too.
+
+  ``` csharp
+  public class Naming
+  {
+    private readonly string Member; // avoid
+    private readonly string member; // recommended
+    private readonly string _member; // recommended
+    
+    ...
+    
+    public void ThisIsAFunction()
+    {
+      Console.WriteLine(Member); // avoid
+      Console.WriteLine(member); // avoid
+      Console.WriteLine(this.member); // recommended
+      Console.WriteLine(this._member); // avoid
+      Console.WriteLine(_member); // recommended
+    }
+  }
+  ```
+
 ### Visibility
 
   - The visibility of class members is private or in some cases protected. If an inherited class uses the member but does not modify it create a property with only a getter. Always use the visibility keywords that way in the future all developers will know what your intention were.

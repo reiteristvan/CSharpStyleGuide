@@ -17,6 +17,8 @@ I am by all means don't know everything and of course make mistakes. If you have
 1. [Classes](#classes)
 2. [Constructors](#constructors)
 3. [Class members](#class-members)
+4. [Methods and functions](#methods-and-functions)
+5. [Variables](#variables)
 
 ## Classes
 
@@ -176,6 +178,10 @@ I am by all means don't know everything and of course make mistakes. If you have
 ### Readonly
 
   - Members when possible should have the readonly modifier, that way we enforce that every members get the appropriate value after the constuctor runned.
+
+## Methods and functions
+
+## Variables
 
 ## Copyright
 

@@ -183,6 +183,28 @@ I am by all means don't know everything and of course make mistakes. If you have
 
 ## Variables
 
+### Var
+
+  - Only use 'var' when there is a 'new' operator on the right side of the expression.
+  
+  *Why?*: The source code must be readable. When you have some function call or complex LINQ query on the right side is often hard to figure out what type that variable will be. 
+  Also, when you use 'var' you leave the compiler to decide which type should be use there. For example if you have a function call on the right side which initially returns IEnumerable<T> and you decide that you want to "terminate" the call with 'ToList()' then the meaning of 'var' will change to List<T> regardless of how we want to use it.
+
+  ``` csharp
+  public void ReadableMethod()
+  {
+    var variableString = "thisIsAString"; // acceptable but not recommended
+    string anotherString = "hello"; // recommended
+    var result = _collection.Where(i => i.Value > 10).GroupBy(i => i.Property); // avoid
+    var anotherResult = FunctionCall("var", "iable"); // avoid
+    
+    using(var client = new HttpClient()) // recommended
+    {
+    
+    }
+  }
+  ```
+
 ## Copyright
 
 Copyright (c) 2016- Istvan Reiter

@@ -19,6 +19,7 @@ I am by all means don't know everything and of course make mistakes. If you have
 3. [Class members](#class-members)
 4. [Methods and functions](#methods-and-functions)
 5. [Variables](#variables)
+6. [Blocks and scopes](#blocks-and-scopes)
 
 ## Classes
 
@@ -201,6 +202,28 @@ I am by all means don't know everything and of course make mistakes. If you have
     using(var client = new HttpClient()) // recommended
     {
     
+    }
+  }
+  ```
+
+## Blocks and Scopes
+
+### One liners
+  - A block is always inside curly braces ({}). Even when the language is accept a block without them you should always use it.
+  
+  *Why?*: It makes the source code readable and prevent mistakes.
+
+  ``` csharp
+  public void Blocks(int x)
+  {
+    // avoid
+    if(x > 10)
+      Console.WriteLine("x > 10");
+    
+    // recommended  
+    if(x > 20)
+    {
+      Console.WriteLine("x > 20");
     }
   }
   ```
